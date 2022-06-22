@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
-const [animal, setAnimal] = useState("");
 
 const SearchParams = () => {
   const [location, setLocation] = useState("Seattle, WA");
+  const [animal, setAnimal] = useState("");
   return (
     <div className="search-params">
       <form>
