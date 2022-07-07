@@ -8,6 +8,7 @@ export default function useBreedList(animal) {
   const [status, setStatus] = useState("unloaded"); // this string represents the state that the hook is in
 
   useEffect(() => {
+    // if no animal is provided then setBreedList to an empty list bc we have no animals
     if (!animal) {
       setBreedList([]);
     } else if (localCache[animal]) {
@@ -15,7 +16,7 @@ export default function useBreedList(animal) {
     } else {
       requestBreedList();
     }
-    // set the setBreedList to be empty bc if we are switching back and forth between breeds, there should never be a an interim state when we are requesting data from the API where dogs have cat breeds and vice versa
+    // set the setBreedList to be empty bc if we are switching back and forth between breeds, there should never be a an interim state when we are requesting new data from the API where dogs have cat breeds and vice versa
     async function requestBreedList() {
       setBreedList([]);
       setStatus("loading");

@@ -17,22 +17,26 @@ const SearchParams = () => {
 
   useEffect(() => {
     requestPets();
-  }, []); // eslint-disable-line react-hooks/exhaustive-dep
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function requestPets() {
     const res = await fetch(
       `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
     );
+    // this json object is gonna be whatever we get back from the API
     const json = await res.json();
-
-    console.log(json);
 
     setPets(json.pets);
   }
 
   return (
     <div className="search-params">
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          requestPets();
+        }}
+      >
         <label htmlFor="location">
           Location
           <input
@@ -50,7 +54,9 @@ const SearchParams = () => {
             onChange={(e) => setAnimal(e.target.value)}
             onBlur={(e) => setAnimal(e.target.value)}
           >
+            {/* this option here is for the first blank option in the dropdown list */}
             <option />
+            {/* looping over the ANIMALS array and creating a react component for each one */}
             {ANIMALS.map((animal) => (
               <option key={animal} value={animal}>
                 {animal}
@@ -77,6 +83,7 @@ const SearchParams = () => {
         </label>
         <button>Submit</button>
       </form>
+      {/* this map below: so now after we request things from the API, were gonna get back a Pet component for each pet that we got back from the API */}
       {pets.map((pet) => (
         <Pet
           name={pet.name}
