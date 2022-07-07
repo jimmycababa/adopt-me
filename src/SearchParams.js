@@ -32,6 +32,7 @@ const SearchParams = () => {
   return (
     <div className="search-params">
       <form
+        // we are requesting Pets. When you submit a form you have to prevent the form from submitting otherwise it will refresh the page. preventDefault will not allow the page to refresh.
         onSubmit={(e) => {
           e.preventDefault();
           requestPets();
