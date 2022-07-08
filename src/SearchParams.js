@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Pet from "./Pet";
+import Results from "./Results";
 import useBreedList from "./useBreedList";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
@@ -84,15 +84,7 @@ const SearchParams = () => {
         </label>
         <button>Submit</button>
       </form>
-      {/* this map below: so now after we request things from the API, were gonna get back a Pet component for each pet that we got back from the API */}
-      {pets.map((pet) => (
-        <Pet
-          name={pet.name}
-          animal={pet.animal}
-          breed={pet.breed}
-          key={pet.id}
-        />
-      ))}
+      <Results pets={pets} />
     </div>
   );
 };
