@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Carousel from "./Carousel";
+import ErrorBoundary from "./ErrorBoundary";
 
 // class components always has a render method that returns something
 class Details extends Component {
@@ -28,6 +29,7 @@ class Details extends Component {
 
     const { animal, breed, city, state, description, name, images } =
       this.state;
+
     return (
       <div className="details">
         <Carousel images={images} />
@@ -42,5 +44,13 @@ class Details extends Component {
   }
 }
 
+export default function DetailsWithErrorBoundary() {
+  const DetailsWithRouter = withRouter(Details);
+  return (
+    <ErrorBoundary>
+      <DetailsWithRouter />
+    </ErrorBoundary>
+  );
+}
+
 // withRouter will inject on the react router information into the route(passing the props in)
-export default withRouter(Details);
