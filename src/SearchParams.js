@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import ThemeContext from "./ThemeContext";
 import Results from "./Results";
 import useBreedList from "./useBreedList";
 
@@ -10,6 +11,8 @@ const SearchParams = () => {
   const [breed, setBreed] = useState("");
   const [pets, setPets] = useState([]);
   const [breeds] = useBreedList(animal);
+  // access to the theme now
+  const [theme, setTheme] = useContext(ThemeContext);
 
   // the useEffect hook is inside the render bc now we have a closure where we can access all the hooks and variables within the component
 
@@ -82,7 +85,21 @@ const SearchParams = () => {
             ))}
           </select>
         </label>
-        <button>Submit</button>
+        <label htmlFor="theme">
+          Theme
+          <select
+            value={theme}
+            onChange={(e) => setTheme(e.target.value)}
+            onBlur={(e) => setTheme(e.target.value)}
+          >
+            <option value="pink">Pink</option>
+            <option value="red">Red</option>
+            <option value="yellow">Yellow</option>
+            <option value="green">Green</option>
+          </select>
+        </label>
+        {/* the outer curly braces are telling react that we about to give it a js expression, and the inside braces tell it that we have an object inside here(here we have a style object) */}
+        <button style={{ backgroundColor: theme }}>Submit</button>
       </form>
       <Results pets={pets} />
     </div>
